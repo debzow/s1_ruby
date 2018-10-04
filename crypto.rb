@@ -9,38 +9,65 @@ for i in 0..(currency_names.length - 1)
   my_hash[currency_names[i].to_s] = currency_values[i]
 end
 
-#puts my_hash
-
-#Donne moi la crypto qui a la plus grosse valeur
-def convert_value_to_float(str)
-  str[0] = ""
-  f = str.to_f
-  return f
+# Conversion de toutes les valeurs en decimales.
+def convert_values_to_float(hash)
+  hash.each do |k,v|
+    v[0] = ""
+    hash[k] = v.to_f
+  end
 end
+
+convert_values_to_float(my_hash)
+puts ""
+puts "Nombre total de devises => #{my_hash.length}"
+puts "======================================================"
 
 def max_value(hash)
-  hash.max_by{|k,v| convert_value_to_float(v)}
+  hash.max_by{|k,v| v}
 end
 
-puts max_value(my_hash)
-
-
-
-#Donne moi la crypto qui a la plus petite valeur
+puts "Crypto qui a la plus grosse valeur => #{max_value(my_hash)[0]} (#{max_value(my_hash)[1]}$)"
+puts "===================================================="
 
 def min_value(hash)
-  hash.min_by{|k,v| convert_value_to_float(v)}
+  hash.min_by{|k,v| v}
 end
 
-puts min_value(my_hash)
+puts "Crypto qui a la plus petite valeur => #{min_value(my_hash)[0]} (#{min_value(my_hash)[1]}$)"
 
+puts "==================================================="
 
+def coin_name(hash)
+  i = 0
+  hash.each do |k,v|
+    if k.to_s.downcase.include? "coin"
+    i += 1
+    end
+  end
+  return i
+end
 
+puts "Combien des cryptos contiennent le mot \"coin\" ? => #{coin_name(my_hash)}"
 
+puts "========================================="
 
-=begin
+def currency_less_than(hash)
+  hash2 = {}
+  hash.each do |k,v|
+    if v. < 6000
+      hash2[k] = v
+    end
+  end
+  return hash2
+end
 
-Combien de crypto contiennent le mot "coin" ?
-Sors moi tout les devises, dont le cours est inférieur à 6000 (indice: pense bien à enlever le $ pour pouvoir faire une comparaison)
-Quel est le cours le plus haut parmi celle-la ?
-=end
+hash3 = currency_less_than(my_hash)
+
+puts "Le nombre de devises dont le cours est inférieur à 6000 est => #{hash3.length} (Si vous souhaitez afficher les noms des devises, decommentez la ligne 69 du code)"
+
+hash3.each do |k,v|
+#print "#{k}, "
+end
+
+puts "\n ======================"
+puts "Quel est le cours le plus haut parmi celle-la ? => #{max_value(hash3)[0]} (#{max_value(hash3)[1]}$) "
