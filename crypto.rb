@@ -12,26 +12,25 @@ end
 #puts my_hash
 
 #Donne moi la crypto qui a la plus grosse valeur
-def remove_first_element(str)
-  str.tr("$", "")
-  return str
+def convert_value_to_float(str)
+  str[0] = ""
+  f = str.to_f
+  return f
 end
 
 def max_value(hash)
-  hash.max_by{|k,v| v.chomp("$").to_i}
+  hash.max_by{|k,v| convert_value_to_float(v)}
 end
 
-puts max_value(my_hash)[0]
+puts max_value(my_hash)
 
 
 
 #Donne moi la crypto qui a la plus petite valeur
 
 def min_value(hash)
-  hash.min_by{|k,v| v.chomp("$").to_i}
+  hash.min_by{|k,v| convert_value_to_float(v)}
 end
-
-
 
 puts min_value(my_hash)
 
